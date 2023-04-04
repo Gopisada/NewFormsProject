@@ -1,0 +1,66 @@
+table {
+    width: 90%;
+    margin: auto;
+    margin-top: 25px;
+    margin-left: 50px;
+    border: 2px solid black;
+  }
+  th{
+    background-color: lightgray;
+    border: 1px solid grey;
+  }
+  td{
+    border: 1px solid grey;
+  }
+tr:nth-child(odd){
+    background-color: lightgrey;
+}
+.locationtable {
+    overflow-y: auto;
+    overflow-x: auto;
+    width:300px;
+    margin-bottom: 2.4rem;
+    background-color:rgb(241, 240, 240);
+    color: black;
+    border-collapse: collapse;
+  }
+  
+  .locationtable tr:nth-child(odd) {
+    background-color:#fff;
+  }
+  .locationhead {
+    width: fit-content;
+    background-color: rgb(241, 240, 240);
+    border-bottom: groove;
+  }
+  .locationtable th,
+  .locationtable td {
+    margin: .5rem 2rem;
+    text-align: left;
+    width:200px;
+    text-align: center;
+  }
+  .locationtable tbody tr {
+    border-bottom: groove;
+  }
+  .tableclass{
+    position: relative;
+    margin-left: 220px;
+  }
+  p{
+    color: red;
+    margin-left: 35px;
+  }
+  .butn{
+    padding: 10px 20px;
+    margin: 10px 0px 20px 30px;
+    background-color: rgb(56, 243, 99);
+    font-weight: 600;
+    transition: 0.4s ease;
+    left:30px;
+    border-radius:10px;
+}
+.butn:hover{
+    background:rgb(4, 132, 25);
+}
+ 

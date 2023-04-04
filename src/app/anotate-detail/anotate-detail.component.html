@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="col-md-12" style="display: flex;margin-top: 20px;">
+    <div class="col col-md-6">
+  
+<mat-form-field appearance="fill">
+  <mat-label>Select the Dictionary Name</mat-label>
+  <mat-select [(value)]="selected" (selectionChange)="selectedVal($event)">
+    <mat-option *ngFor="let item of array; let i=index" [value]="getValuesOf(item)" >
+      {{getKeys(item)}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+
+<div class="col col-md-6">
+  <mat-form-field appearance="fill">
+  <mat-label>Select the PDF</mat-label>
+  <mat-select [(value)]="selectedPDF" (selectionChange)="selectedPDFview($event)">
+    <mat-option *ngFor="let item of pdfList" [value]=item.url>
+      {{item.value}}
+    </mat-option>
+   
+    
+  </mat-select>
+</mat-form-field>
+</div>
+</div>
+</div>
+
+<div style="display: flex;" class="col-md-12">
+<div class="col col-md-3" *ngIf="fieldsList.length>0">
+<table class="locationtable">
+  <thead class="locationhead">
+    <tr>
+      <th>List of Fields</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let val of fieldsList;let i=index">
+    <td (mouseup)="getSelectedFieldText()">{{val.fieldName}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="col col-md-3">
+<pdf-viewer [src]=pdfSrcURL *ngIf="pdfSrcURL"
+    [render-text]="true"
+    [original-size]="false"
+    [render-text-mode]="1"
+    #pdfViewerOnDemand 
+    style="width: 600px; height: 700px;padding: 4px;text-align: justify;"
+    (mouseup)="getSelectedText()"
+></pdf-viewer>
+</div>
+<div class="col col-md-4">
+  <div class="tableclass">
+    <h2 *ngIf="contentList.length>0" style="text-align: center;">**Instructions: {{message}}</h2>
+    <table  *ngIf="contentList.length>0" class="locationtable">
+        <thead class="locationhead">
+            <tr>
+                <th>Keys</th>
+                <th>Values</th>
+                <th>X coordinate</th>
+                <th>Y coordinate</th>
+                <th>Page Number</th>
+                <th>Action</th>
+                </tr>
+        </thead>
+       <tbody>
+        <tr *ngFor="let text of contentList">
+            <td><input  class="input" type="text" [(ngModel)]="text.key" value="text.key" [disabled]="text.value==''" (keyup)="validateKey(text.key)" /></td>
+        <td>{{text.value}}</td>
+        <td>{{text.xCoord!==''?text.xCoord.toFixed(2):''}}</td>
+        <td>{{text.yCoord!==''?text.yCoord.toFixed(2):''}}</td>
+        <td>{{text.page}}</td>
+        <td>
+            <button class=" btn-default" type="button" (click)="delete(text)">
+                <i class="material-icons">delete</i>
+              </button>
+        </td>
+        </tr>
+       </tbody>
+        
+        
+        </table>
+        <p *ngIf="isKey">Key should not be Empty</p>
+        <button class="butn" (click)="convertToJson()" *ngIf="contentList.length>0" [disabled]="isKey">Submit</button>
+</div>
+
+</div>
+</div>
+

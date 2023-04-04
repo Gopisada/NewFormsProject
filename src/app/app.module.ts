@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AnotateDetailComponent } from './anotate-detail/anotate-detail.component';
 import { MatSelectModule } from '@angular/material/select'
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     // FormDetailScrnComponent,
     DummyCompComponent,
     AdminDashboardComponent,
-    AnotateDetailComponent
+    AnotateDetailComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

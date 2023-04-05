@@ -28,7 +28,14 @@
 </div>
 
 <div class="row">
-<div class="column" *ngIf="fieldsList.length>0">
+  <div class="column" *ngIf="fieldsList.length>0">
+    <form style="margin-left: 80px;">
+      <mat-form-field class="example-full-width">
+        <mat-label>Search Field</mat-label>
+        <input matInput  name="searchField" [(ngModel)]="searchField">
+      </mat-form-field>
+    </form>
+    
 <table class="locationtable">
   <thead class="locationhead">
     <tr>
@@ -36,7 +43,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let val of fieldsList;let i=index">
+    <tr *ngFor="let val of fieldsList | filterPipe:searchField;let i=index">
     <td (mouseup)="getSelectedFieldText()">{{val.fieldName}}</td>
     </tr>
   </tbody>

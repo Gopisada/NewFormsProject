@@ -6,6 +6,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./anotate-detail.component.css']
 })
 export class AnotateDetailComponent {
+  searchField:any="";
   selected:any;
   selectedPDF:any;
   pdfSrcURL:any;

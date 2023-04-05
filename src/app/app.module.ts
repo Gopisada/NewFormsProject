@@ -22,6 +22,9 @@ import { AnotateDetailComponent } from './anotate-detail/anotate-detail.componen
 import { MatSelectModule } from '@angular/material/select'
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FooterComponent } from './footer/footer.component';
+import { FilterPipePipe } from './filter-pipe.pipe';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { FooterComponent } from './footer/footer.component';
     DummyCompComponent,
     AdminDashboardComponent,
     AnotateDetailComponent,
-    FooterComponent
+    FooterComponent,
+    FilterPipePipe
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,9 @@ import { FooterComponent } from './footer/footer.component';
     MatSelectModule,
     MatProgressSpinnerModule,
     PdfViewerModule,
-    FormsModule
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   exports:[MatSelectModule],
   providers: [],

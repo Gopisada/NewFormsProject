@@ -27,8 +27,8 @@
 </div>
 </div>
 
-<div style="display: flex;" class="col-md-12">
-<div class="col col-md-3" *ngIf="fieldsList.length>0">
+<div class="row">
+<div class="column" *ngIf="fieldsList.length>0">
 <table class="locationtable">
   <thead class="locationhead">
     <tr>
@@ -42,7 +42,7 @@
   </tbody>
 </table>
 </div>
-<div class="col col-md-3">
+<div class="column">
 <pdf-viewer [src]=pdfSrcURL *ngIf="pdfSrcURL"
     [render-text]="true"
     [original-size]="false"
@@ -52,7 +52,7 @@
     (mouseup)="getSelectedText()"
 ></pdf-viewer>
 </div>
-<div class="col col-md-4">
+<div class="column">
   <div class="tableclass">
     <h2 *ngIf="contentList.length>0" style="text-align: center;">**Instructions: {{message}}</h2>
     <table  *ngIf="contentList.length>0" class="locationtable">

@@ -26,7 +26,8 @@ export class AnotateDetailComponent {
   array = [{ "HelloHIMOWAS": [ { "fieldName": "HiMowa", "type": "text", "description": "hjvddha", "object": [] }, { "fieldName": " jhdbhavdjad", "type": "number", "description": "21345644", "object": [] } ] },
             {"Hello": [ { "fieldName": "HiMowa", "type": "text", "description": "hjvddha", "object": [] }, { "fieldName": " jhdbhavdjad", "type": "number", "description": "21345644", "object": [] }, { "fieldName": "bsjaudgvuagvdyu", "type": "object", "description": "jknjkadad", "object": [ { "key": "Address", "text": "hvhagdad", "desc": "hbahvjgvadad" }, { "key": "bdhbjhdvha", "text": "dbhvjdad", "desc": "dhdhvgdjad" } ] } ]},
             { "Eppudiruka": [ { "fieldName": "qasas", "type": "text", "description": "asfas", "object": [] }, { "fieldName": "gwfwef", "type": "number", "description": "", "object": [] } ] },
-            { "FormFields": [ { "fieldName": "vhvbvn", "type": "object", "description": "jhkjnas", "object": [ { "key": "jhsbakbj", "text": "jkjsa", "desc": "askjas" } ] } ] } ]
+            { "FormFields": [ { "fieldName": "vhvbvn", "type": "object", "description": "jhkjnas", "object": [ { "key": "jhsbakbj", "text": "jkjsa", "desc": "askjas" } ] } ] } ,
+          { "djjdncads": [ { "fieldName": "sdsd", "type": "text", "description": "dsdvsdv", "object": [] }, { "fieldName": "sszdvsdv", "type": "number", "description": "sdvsdvsdv", "object": [] }, { "fieldName": "vdsvsdvs", "type": "object", "description": "fewewrgedtbedb ", "object": [ { "key": "vsdvsdv", "text": "vdsvdsdv", "desc": "vdsvsdvsdv" } ] } ]}]
 @ViewChild('pdfViewerOnDemand') PdfComponent:any =  ElementRef;
 getValuesOf(obj:any){
   return Object.values(obj)

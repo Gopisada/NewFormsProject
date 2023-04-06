@@ -1,20 +1,20 @@
 
  <div class="container">
 <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
-  <form class="col col-md-12 mr-5" [formGroup]="globalFieldForm">
-    <div class="mb-3">
-      <label [for]="'field'" class="form-label"
+  <!-- <form class="col col-md-12 mr-5" [formGroup]="globalFieldForm"> -->
+    <div class="col col-md-12 mr-5 mb-3" >
+      <label [for]="'DictionaryName'" class="form-label"
         ></label
       >
       <input
         type="text"
         class="form-control"
         placeholder="Enter the Dictionary Name"
-        formControlName="field"
+        formControlName="DictionaryName"
       />
     </div>
-  </form>
-  <div formArrayName="employees">
+  <!-- </form> -->
+  <div formArrayName="FormFields">
     <div *ngFor="let employee of employees().controls; let empIndex=index">
       <div
         [formGroupName]="empIndex"
@@ -44,7 +44,7 @@
                    class="form-select"
                    formControlName="type"
                     (change)="selectedType($event,empIndex)"
-                    [attr.disabled]="empForm.controls.employees.controls[empIndex].controls.type.value=='object' ? '' : null"
+                    [attr.disabled]="empForm.controls.FormFields.controls[empIndex].controls.type.value=='object' ? '' : null"
                    
                  >
                  <option value="">Choose type</option>
@@ -139,7 +139,7 @@
              
             </div>
           </div>
-          <button type="button" class="btn btn-primary" (click)="addSubKey(empIndex)" *ngIf="empForm.controls.employees.controls[empIndex].controls.type.value=='object'">
+          <button type="button" class="btn btn-primary" (click)="addSubKey(empIndex)" *ngIf="empForm.controls.FormFields.controls[empIndex].controls.type.value=='object'">
             Add Subkey
           </button>
         </div>

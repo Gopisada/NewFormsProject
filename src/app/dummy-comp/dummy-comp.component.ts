@@ -17,19 +17,14 @@ export class DummyCompComponent {
   constructor(private fb: FormBuilder) {}
  
   ngOnInit() {
-    this.globalFieldForm = this.fb.group({
-      field: ''
-    });
-    
-var field = this.globalFieldForm.get('field').value;
-console.log(field);
-    this.empForm = this.fb.group({
-     employees : this.fb.array([])
+  this.empForm = this.fb.group({
+     DictionaryName : '',
+     FormFields : this.fb.array([])
     });
   }
  
   employees(): FormArray {
-    return this.empForm.get('employees') as FormArray;
+    return this.empForm.get('FormFields') as FormArray;
   }
  
   newEmployee(): FormGroup {
@@ -72,23 +67,10 @@ console.log(field);
     }
  
   onSubmit() {
-    var fieldName = this.globalFieldForm.get('field').value;
-    var oldfield = JSON.parse(JSON.stringify(localStorage.getItem('globalFormVal')));
-    this.empForm.value[fieldName] = this.empForm.value['employees']?this.empForm.value['employees']: this.empForm.value[oldfield];
-  
-    if(this.empForm.value['employees']){
-    delete this.empForm.value['employees'];
-   }else{
-    delete this.empForm.value[oldfield];
-   }
-   localStorage.setItem('globalFormVal',fieldName);
-    console.log(fieldName,this.empForm.value[fieldName]);
-    this.forms.push(this.empForm);
-    // localStorage.setItem('forms',this.forms);
+    console.log(this.empForm)
   }
   selectedType(e: any ,index:number) {
-
-    if(e.target.value == "3: object"){
+  if(e.target.value == "3: object"){
       this.addSubKey(index);
     }
     }

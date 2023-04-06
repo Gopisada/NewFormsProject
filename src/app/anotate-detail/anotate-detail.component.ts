@@ -24,11 +24,10 @@ export class AnotateDetailComponent {
   message:string='Please Select the Key';
   isKey:boolean = false; 
   // array = JSON.parse(JSON.stringify(localStorage.getItem('forms')));
-  array = [{ "HelloHIMOWAS": [ { "fieldName": "HiMowa", "type": "text", "description": "hjvddha", "object": [] }, { "fieldName": " jhdbhavdjad", "type": "number", "description": "21345644", "object": [] } ] },
-            {"Hello": [ { "fieldName": "HiMowa", "type": "text", "description": "hjvddha", "object": [] }, { "fieldName": " jhdbhavdjad", "type": "number", "description": "21345644", "object": [] }, { "fieldName": "bsjaudgvuagvdyu", "type": "object", "description": "jknjkadad", "object": [ { "key": "Address", "text": "hvhagdad", "desc": "hbahvjgvadad" }, { "key": "bdhbjhdvha", "text": "dbhvjdad", "desc": "dhdhvgdjad" } ] } ]},
-            { "Eppudiruka": [ { "fieldName": "qasas", "type": "text", "description": "asfas", "object": [] }, { "fieldName": "gwfwef", "type": "number", "description": "", "object": [] } ] },
-            { "FormFields": [ { "fieldName": "vhvbvn", "type": "object", "description": "jhkjnas", "object": [ { "key": "jhsbakbj", "text": "jkjsa", "desc": "askjas" } ] } ] } ,
-          { "djjdncads": [ { "fieldName": "sdsd", "type": "text", "description": "dsdvsdv", "object": [] }, { "fieldName": "sszdvsdv", "type": "number", "description": "sdvsdvsdv", "object": [] }, { "fieldName": "vdsvsdvs", "type": "object", "description": "fewewrgedtbedb ", "object": [ { "key": "vsdvsdv", "text": "vdsvdsdv", "desc": "vdsvsdvsdv" } ] } ]}]
+  array = [{ "DictionaryName": "HiHello", "FormFields": [ { "fieldName": "cadcsd", "type": "object", "description": "vdvsdvsd", "object": [ { "key": "vdsds", "text": "vdsvd", "desc": "vdsvsdvsd" } ] } ] },
+  { "DictionaryName": "Gopi", "FormFields": [ { "fieldName": "cadcsd", "type": "object", "description": "vdvsdvsd", "object": [ { "key": "vdsds", "text": "vdsvd", "desc": "vdsvsdvsd" } ] } ] },
+  { "DictionaryName": "Sada", "FormFields": [ { "fieldName": "cadcsd", "type": "object", "description": "vdvsdvsd", "object": [ { "key": "vdsds", "text": "vdsvd", "desc": "vdsvsdvsd" } ] },
+  { "fieldName": "vhvbvn", "type": "object", "description": "jhkjnas", "object": [ { "key": "jhsbakbj", "text": "jkjsa", "desc": "askjas" } ] } ] }]
 @ViewChild('pdfViewerOnDemand') PdfComponent:any =  ElementRef;
 getValuesOf(obj:any){
   return Object.values(obj)
@@ -37,7 +36,8 @@ getKeys(obj:any){
   return Object.keys(obj)
 }
 selectedVal(val:any){
-this.fieldsList  = val.value[0];
+  // console.log(val)
+ this.fieldsList  = val.value[1];
 }
 selectedPDFview(val:any){
  this.pdfSrcURL = val.value;

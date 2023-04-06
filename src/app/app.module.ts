@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { FormDetailScrnComponent } from './form-detail-scrn/form-detail-scrn.component';
-import { DummyCompComponent } from './dummy-comp/dummy-comp.component';
+import { DummyCompComponent } from './Dictionary-FormDetail/dictionary-FormDetail.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';

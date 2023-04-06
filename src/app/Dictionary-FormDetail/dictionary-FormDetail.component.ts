@@ -4,8 +4,8 @@ import { FormSubmitService } from '../form-submit.service';
 
 @Component({
   selector: 'app-dummy-comp',
-  templateUrl: './dummy-comp.component.html',
-  styleUrls: ['./dummy-comp.component.css']
+  templateUrl: './dictionary-FormDetail.component.html',
+  styleUrls: ['./dictionary-FormDetail.component.css']
 })
 export class DummyCompComponent {
 

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DummyCompComponent } from './dummy-comp.component';
+import { DummyCompComponent } from './dictionary-FormDetail.component';
 
 describe('DummyCompComponent', () => {
   let component: DummyCompComponent;

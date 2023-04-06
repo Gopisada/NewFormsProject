@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { DummyCompComponent } from '../../dummy-comp/dummy-comp.component';
+import { DummyCompComponent } from '../../Dictionary-FormDetail/dictionary-FormDetail.component';
 
 const routes: Routes = [{path:'',component:DummyCompComponent}];
 

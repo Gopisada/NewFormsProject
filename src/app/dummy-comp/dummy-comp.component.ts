@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormSubmitService } from '../form-submit.service';
 
 @Component({
   selector: 'app-dummy-comp',
@@ -14,15 +15,17 @@ export class DummyCompComponent {
   
   dataTypes: any = ['text', 'number', 'object', 'date'];
  
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,public formsubmit: FormSubmitService) {}
  
   ngOnInit() {
-  this.empForm = this.fb.group({
-     DictionaryName : '',
-     FormFields : this.fb.array([])
-    });
+ this.initialForm();
   }
- 
+ initialForm(){
+  this.empForm = this.fb.group({
+    DictionaryName : ['',Validators.required],
+    FormFields : this.fb.array([])
+   });
+ }
   employees(): FormArray {
     return this.empForm.get('FormFields') as FormArray;
   }
@@ -67,7 +70,10 @@ export class DummyCompComponent {
     }
  
   onSubmit() {
-    console.log(this.empForm)
+    console.log(this.empForm);
+    this.formsubmit.submitForm(this.empForm);
+    this.empForm.reset();
+    this.initialForm();
   }
   selectedType(e: any ,index:number) {
   if(e.target.value == "3: object"){

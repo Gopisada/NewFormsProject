@@ -25,6 +25,7 @@ import { FooterComponent } from './footer/footer.component';
 import { FilterPipePipe } from './filter-pipe.pipe';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     PdfViewerModule,
     FormsModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HttpClientModule
   ],
   exports:[MatSelectModule],
   providers: [],

@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormSubmitService } from '../form-submit.service';
 
 @Component({
   selector: 'app-anotate-detail',
@@ -6,6 +7,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./anotate-detail.component.css']
 })
 export class AnotateDetailComponent {
+  constructor(private formSubmit:FormSubmitService){}
   searchField:any="";
   selected:any;
   selectedPDF:any;
@@ -23,12 +25,9 @@ export class AnotateDetailComponent {
   viewPdf:any =false;
   message:string='Please Select the Key';
   isKey:boolean = false; 
-  // array = JSON.parse(JSON.stringify(localStorage.getItem('forms')));
-  array = [{ "DictionaryName": "HiHello", "FormFields": [ { "fieldName": "cadcsd", "type": "object", "description": "vdvsdvsd", "object": [ { "key": "vdsds", "text": "vdsvd", "desc": "vdsvsdvsd" } ] } ] },
-  { "DictionaryName": "Gopi", "FormFields": [ { "fieldName": "cadcsd", "type": "object", "description": "vdvsdvsd", "object": [ { "key": "vdsds", "text": "vdsvd", "desc": "vdsvsdvsd" } ] } ] },
-  { "DictionaryName": "Sada", "FormFields": [ { "fieldName": "cadcsd", "type": "object", "description": "vdvsdvsd", "object": [ { "key": "vdsds", "text": "vdsvd", "desc": "vdsvsdvsd" } ] },
-  { "fieldName": "vhvbvn", "type": "object", "description": "jhkjnas", "object": [ { "key": "jhsbakbj", "text": "jkjsa", "desc": "askjas" } ] } ] }]
-@ViewChild('pdfViewerOnDemand') PdfComponent:any =  ElementRef;
+
+  array = this.formSubmit.FormData;
+  @ViewChild('pdfViewerOnDemand') PdfComponent:any =  ElementRef;
 getValuesOf(obj:any){
   return Object.values(obj)
 }
@@ -36,7 +35,7 @@ getKeys(obj:any){
   return Object.keys(obj)
 }
 selectedVal(val:any){
-  // console.log(val)
+  //  console.log(val)
  this.fieldsList  = val.value[1];
 }
 selectedPDFview(val:any){

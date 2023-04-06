@@ -11,7 +11,14 @@
         class="form-control"
         placeholder="Enter the Dictionary Name"
         formControlName="DictionaryName"
-      />
+      required />
+      <div *ngIf="empForm.controls.DictionaryName.invalid && (empForm.controls.DictionaryName.dirty || empForm.controls.DictionaryName.touched)"
+    >
+
+  <div *ngIf="empForm.controls.DictionaryName.errors?.['required']" class="alert alert-danger">
+    DictionaryName is required.
+  </div>
+</div>
     </div>
   <!-- </form> -->
   <div formArrayName="FormFields">
@@ -132,12 +139,7 @@
                   </div>
                   </div>
                 </div>
-              <!-- <button class="btn btn-danger mt-4"
-              type="button" (click)="removeObject(empIndex,adressIndex)">
-                Remove subKey
-              </button> -->
-             
-            </div>
+             </div>
           </div>
           <button type="button" class="btn btn-primary" (click)="addSubKey(empIndex)" *ngIf="empForm.controls.FormFields.controls[empIndex].controls.type.value=='object'">
             Add Subkey
@@ -148,7 +150,7 @@
     </div>
     </div>
     <button type="button" class="btn btn-primary" (click)="addEmployee()">Add Fields</button>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" [disabled]="empForm.controls.DictionaryName.invalid && (empForm.controls.DictionaryName.dirty || empForm.controls.DictionaryName.touched) || empForm.controls.DictionaryName.value==''">Submit</button>
   </div>
 </form>
 </div>

@@ -6,7 +6,7 @@
   <mat-label>Select the Dictionary Name</mat-label>
   <mat-select [(value)]="selected" (selectionChange)="selectedVal($event)">
     <mat-option *ngFor="let item of array; let i=index" [value]="getValuesOf(item)" >
-      {{item.DictionaryName}}
+      {{item.dictionaryname}}
     </mat-option>
   </mat-select>
 </mat-form-field>
@@ -96,4 +96,3 @@
 
 </div>
 </div>
-

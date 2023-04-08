@@ -1,4 +1,291 @@
-/* You can add global styles to this file, and also import other style files */
+h1 {
+    color:Green;
+}
+div.scroll {
+    margin:4px, 4px;
+    padding:4px;
+   
+    width: 500px;
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+    border: 2px  ;
+}  
+
+.flex-child:first-child {
+    margin-right: 20px;
+} 
+
+/* HeroesComponent's private CSS styles */
+.heroes {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+  }
+  
+  .heroes li {
+    display: flex;
+  }
+  
+  .heroes button {
+    flex: 1;
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: 0;
+    border-radius: 4px;
+    display: flex;
+    align-items: stretch;
+    height: 1.8em;
+  }
+  
+  .heroes button:hover {
+    color: #2c3a41;
+    background-color: #e6e6e6;
+    left: .1em;
+  }
+  
+  .heroes button:active {
+    background-color: #525252;
+    color: #fafafa;
+  }
+  
+  .heroes button.selected {
+    background-color: black;
+    color: white;
+  }
+  
+  .heroes button.selected:hover {
+    background-color: #505050;
+    color: white;
+  }
+  
+  .heroes button.selected:active {
+    background-color: black;
+    color: white;
+  }
+  
+  .heroes .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #405061;
+    line-height: 1em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .heroes .name {
+    align-self: center;
+  }
+
+  /* Page title */
+/* ---------------------------------------------------------- */
+.title-holder {
+  border-bottom: 2px solid #f2f2f2;
+  margin-bottom: 10px;
+}
+.table-holder {
+  background-color: white;
+  padding: 15px;
+  padding-top: 5px;
+  border-radius: 5px;
+  margin-left: 45px;
+  margin-right: 45px;
+}
+.list-title {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  margin: 5px;
+}
+/* ---------------------------------------------------------- */
+
+
+/* Table styles */
+/* ---------------------------------------------------------- */
+.mat-table {
+  width: 100%;
+}
+
+.float-right {
+  float: right;
+}
+/* ---------------------------------------------------------- */
+
+/* Header styles */
+/* ---------------------------------------------------------- */
+.mat-header-cell {
+  background-color: #393939;
+  color: white;
+}
+.mat-header-cell:not(:first-child) {
+  padding-left: 0;
+}
+
+/* Style just the text in the header */
+.mat-header-cell span {
+  font-weight: 600;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+}
+/* Round the top table corners */
+.mat-header-cell:first-child {
+  border-top-left-radius: 5px;
+}
+.mat-header-cell:last-child {
+  border-top-right-radius: 5px;
+}
+
+.mat-header-row {
+  height: 3em;
+}
+
+.btn-icon {
+  height: 17px;
+  width: 17px;
+  background-color: #393939;
+  border: none;
+}
+
+.sort-icon {
+  height: 17px;
+  width: 17px;
+  color: white;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  position: relative;
+  left: -1.5rem;
+  display: none!important;
+  opacity: 0;
+}
+
+.header {
+  padding: 5px;
+}
+
+.mat-header-cell {
+  /* color: red!important; */
+  /* display: flex; */
+  /* align-content: center; */
+}
+/* ---------------------------------------------------------- */
+
+
+/* Column styles */
+/* ---------------------------------------------------------- */
+.type-column {
+  width: 15%;
+  padding-right: 3rem;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.name-column {
+  width: 30%;
+  padding-right: 3rem;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.amount-column {
+  width: 15%;
+  padding-right: 3rem;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.status-column {
+  width: 15%;
+  padding-right: 3rem;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.date-column {
+  width: 20%;
+  padding-right: 3rem;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.state-column {
+  width: 5%;
+}
+/* ---------------------------------------------------------- */
+
+/* Row styles */
+/* ---------------------------------------------------------- */
+.mat-row:nth-child(2n) {
+  background-color: #f2f2f2;
+}
+/* ---------------------------------------------------------- */
+
+/* Cell styles */
+/* ---------------------------------------------------------- */
+.state-cell {
+  text-align: right;
+}
+.mat-cell {
+  border: none;
+}
+
+.green-svg {
+  fill: #6dd400;
+}
+.gray-svg {
+  fill: #b2b4b6;
+}
+/* ---------------------------------------------------------- */
+.mainSpinner {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  align-items: center;
+}
+.mainSpinner::before{
+  content: "";
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  background-color: rgba(0,0,0,0.3);
+}
+.mainSpinnerInner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  position: relative;
+}
+
+.mainSpinnerInner p {
+  margin-bottom: 0px;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+}
+.p {
+  margin-bottom: 0px;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+}

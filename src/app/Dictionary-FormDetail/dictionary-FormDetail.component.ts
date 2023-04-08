@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { AppLoaderService } from '../apploader/apploader.service';
 import { FormSubmitService } from '../form-submit.service';
 
 @Component({
@@ -12,22 +14,23 @@ export class DummyCompComponent {
   empForm: any;
   globalFieldForm:any;
   forms:any=[];
+  message:string="";
   
   dataTypes: any = ['text', 'number', 'object', 'date'];
  
   constructor(private fb: FormBuilder,public formsubmit: FormSubmitService) {}
- 
+   
   ngOnInit() {
  this.initialForm();
   }
  initialForm(){
   this.empForm = this.fb.group({
-    DictionaryName : ['',Validators.required],
-    FormFields : this.fb.array([])
+    dictionaryname : ['',Validators.required],
+    formFields : this.fb.array([])
    });
  }
   employees(): FormArray {
-    return this.empForm.get('FormFields') as FormArray;
+    return this.empForm.get('formFields') as FormArray;
   }
  
   newEmployee(): FormGroup {
@@ -70,8 +73,22 @@ export class DummyCompComponent {
     }
  
   onSubmit() {
-    console.log(this.empForm);
-    this.formsubmit.submitForm(this.empForm);
+    //this.loader.open("Please Wait......");
+    this.formsubmit.SaveDataDictionary(this.empForm).subscribe({
+      next: (resp: any) => {
+           
+          if(resp == "Successfully inserted the record"){
+            this.message = resp;
+          }else{                       
+            this.message = resp;
+          }
+       //   this.loader.close();  
+      },
+      error: (err: any) => {
+        //this.toastrService.error(err); 
+       // this.loader.close();
+      }
+    })
     this.empForm.reset();
     this.initialForm();
   }

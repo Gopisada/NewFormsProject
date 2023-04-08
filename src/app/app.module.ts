@@ -14,7 +14,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
-
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -26,6 +25,9 @@ import { FilterPipePipe } from './filter-pipe.pipe';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { HttpClientModule } from '@angular/common/http';
+import { AppLoaderService } from './apploader/apploader.service';
+
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 
 @NgModule({
   declarations: [
@@ -56,10 +58,11 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule 
   ],
   exports:[MatSelectModule],
-  providers: [],
+  providers: [AppLoaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

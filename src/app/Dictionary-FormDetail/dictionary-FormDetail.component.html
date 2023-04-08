@@ -1,158 +1,110 @@
-
- <div class="container">
-<form [formGroup]="empForm" (ngSubmit)="onSubmit()">
-  <!-- <form class="col col-md-12 mr-5" [formGroup]="globalFieldForm"> -->
-    <div class="col col-md-12 mr-5 mb-3" >
-      <label [for]="'DictionaryName'" class="form-label"
-        ></label
-      >
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter the Dictionary Name"
-        formControlName="DictionaryName"
-      required />
-      <div *ngIf="empForm.controls.DictionaryName.invalid && (empForm.controls.DictionaryName.dirty || empForm.controls.DictionaryName.touched)"
-    >
-
-  <div *ngIf="empForm.controls.DictionaryName.errors?.['required']" class="alert alert-danger">
-    DictionaryName is required.
-  </div>
-</div>
-    </div>
-  <!-- </form> -->
-  <div formArrayName="FormFields">
-    <div *ngFor="let employee of employees().controls; let empIndex=index">
+<div class="flex-container">
+  <div class="container">
+  <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+    <!-- <form class="col col-md-12 mr-5" [formGroup]="globalFieldForm"> -->
+    <div class="col col-md-12 mr-5 mb-3">
+      <label [for]="'dictionaryname'" class="form-label"></label>
+      <input type="text" class="form-control" placeholder="Enter the Dictionary Name" formControlName="dictionaryname"
+        required />
       <div
-        [formGroupName]="empIndex"
-        style="border: 1px solid blue; padding: 10px; width: 100%; margin: 5px;"
-      >
-     
-      <div class="row col col-md-12" style="display: flex;">
-      <div class="col col-md-3 mr-5">
-        <div class="mb-3">
-          <label [for]="'fieldName' + empIndex" class="form-label"
-            ></label
-          >
-          <input
-            type="text"
-            class="form-control"
-            [id]="'fieldName' + empIndex"
-            placeholder="fieldName"
-            formControlName="fieldName"
-          />
+        *ngIf="empForm.controls.dictionaryname.invalid && (empForm.controls.dictionaryname.dirty || empForm.controls.dictionaryname.touched)">
+
+        <div *ngIf="empForm.controls.dictionaryname.errors?.['required']" class="alert alert-danger">
+          DictionaryName is required.
         </div>
       </div>
-      <div class="col col-md-3 mr-5" style="padding-top: 25px;">
-          <div class="mb-3">
-             
-                 <!-- <label class="form-label">Prefered Type</label> -->
-                 <select
-                   class="form-select"
-                   formControlName="type"
-                    (change)="selectedType($event,empIndex)"
-                    [attr.disabled]="empForm.controls.FormFields.controls[empIndex].controls.type.value=='object' ? '' : null"
-                   
-                 >
-                 <option value="">Choose type</option>
-                 <option *ngFor="let dtype of dataTypes" [ngValue]="dtype">
-                   {{ dtype }}
-                 </option>
-                   
-                 </select>
-               
+    </div>
+    <!-- </form> -->
+    <div formArrayName="formFields">
+      <div *ngFor="let employee of employees().controls; let empIndex=index">
+        <div [formGroupName]="empIndex" style="border: 1px solid blue; padding: 10px; width: 100%; margin: 5px;">
+
+          <div class="row col col-md-12" style="display: flex;">
+            <div class="col col-md-3 mr-5">
+              <div class="mb-3">
+                <label [for]="'fieldName' + empIndex" class="form-label"></label>
+                <input type="text" class="form-control" [id]="'fieldName' + empIndex" placeholder="fieldName"
+                  formControlName="fieldName" />
+              </div>
+            </div>
+            <div class="col col-md-3 mr-5" style="padding-top: 25px;">
+              <div class="mb-3">
+
+                <!-- <label class="form-label">Prefered Type</label> -->
+                <select class="form-select" formControlName="type" (change)="selectedType($event,empIndex)"
+                  [attr.disabled]="empForm.controls.formFields.controls[empIndex].controls.type.value=='object' ? '' : null">
+                  <option value="">Choose type</option>
+                  <option *ngFor="let dtype of dataTypes" [ngValue]="dtype">
+                    {{ dtype }}
+                  </option>
+
+                </select>
+
+              </div>
+            </div>
+            <div class="col col-md-3 mr-5">
+              <div class="mb-3">
+                <label [for]="'description' + empIndex" class="form-label"></label>
+                <input type="text" class="form-control" [id]="'description' + empIndex" placeholder="description"
+                  formControlName="description" />
+              </div>
+            </div>
+
+            <div class="col col-md-3">
+              <div class="mb-3" style="float: right;">
+                <mat-icon (click)="removeField(empIndex)" class="mt-4">delete</mat-icon>
+              </div>
+            </div>
           </div>
-        </div>
-      <div class="col col-md-3 mr-5">
-        <div class="mb-3">
-          <label [for]="'description' + empIndex" class="form-label"
-            ></label
-          >
-          <input
-            type="text"
-            class="form-control"
-            [id]="'description' + empIndex"
-            placeholder="description"
-            formControlName="description"
-          />
-        </div>
-    </div>
-     
-      <div class="col col-md-3">
-        <div class="mb-3" style="float: right;">
-          <mat-icon (click)="removeField(empIndex)"  class="mt-4">delete</mat-icon>
-        </div>
-        </div>
-    </div>
- 
-        <div formArrayName="object">
-          <div
-            *ngFor="let skill of adressDetails(empIndex).controls; let adressIndex=index"
-          >
-            <div [formGroupName]="adressIndex">
+
+          <div formArrayName="object">
+            <div *ngFor="let skill of adressDetails(empIndex).controls; let adressIndex=index">
+              <div [formGroupName]="adressIndex">
                 <div class="row col col-md-12" style="display: flex;margin-left: 152px;">
-                <div class="col col-md-3">
+                  <div class="col col-md-3">
                     <div class="mb-3">
-                      <label [for]="'key' + adressIndex" class="form-label"
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        [id]="'key' + adressIndex"
-                        placeholder="key"
-                        formControlName="key"
-                      />
+                      <label [for]="'key' + adressIndex" class="form-label"></label>
+                      <input type="text" class="form-control" [id]="'key' + adressIndex" placeholder="key"
+                        formControlName="key" />
                     </div>
                   </div>
                   <div class="col col-md-3">
                     <div class="mb-3">
-                      <label [for]="'text' + adressIndex" class="form-label"
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        [id]="'text' + adressIndex"
-                        placeholder="text"
-                        formControlName="text"
-                      />
+                      <label [for]="'text' + adressIndex" class="form-label"></label>
+                      <input type="text" class="form-control" [id]="'text' + adressIndex" placeholder="text"
+                        formControlName="text" />
                     </div>
-                    </div>
+                  </div>
                   <div class="col col-md-4">
                     <div class="mb-3">
-                      <label [for]="'desc' + adressIndex" class="form-label"
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        [id]="'desc' + adressIndex"
-                        placeholder="description"
-                        formControlName="desc"
-                      />
+                      <label [for]="'desc' + adressIndex" class="form-label"></label>
+                      <input type="text" class="form-control" [id]="'desc' + adressIndex" placeholder="description"
+                        formControlName="desc" />
                     </div>
                   </div>
                   <div class="col col-md-2">
                     <div class="mb-3">
-                  <mat-icon (click)="removeObject(empIndex,adressIndex)"  class="mt-4">delete</mat-icon>
-                  </div>
+                      <mat-icon (click)="removeObject(empIndex,adressIndex)" class="mt-4">delete</mat-icon>
+                    </div>
                   </div>
                 </div>
-             </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="addSubKey(empIndex)"
+              *ngIf="empForm.controls.formFields.controls[empIndex].controls.type.value=='object'">
+              Add Subkey
+            </button>
           </div>
-          <button type="button" class="btn btn-primary" (click)="addSubKey(empIndex)" *ngIf="empForm.controls.FormFields.controls[empIndex].controls.type.value=='object'">
-            Add Subkey
-          </button>
+
+
         </div>
-        
-      
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addEmployee()">Add Fields</button>
+      <button type="submit" class="btn btn-primary"
+        [disabled]="empForm.controls.dictionaryname.invalid && (empForm.controls.dictionaryname.dirty || empForm.controls.dictionaryname.touched) || empForm.controls.dictionaryname.value==''">Submit</button>
     </div>
-    </div>
-    <button type="button" class="btn btn-primary" (click)="addEmployee()">Add Fields</button>
-    <button type="submit" class="btn btn-primary" [disabled]="empForm.controls.DictionaryName.invalid && (empForm.controls.DictionaryName.dirty || empForm.controls.DictionaryName.touched) || empForm.controls.DictionaryName.value==''">Submit</button>
-  </div>
-</form>
+  </form>
 </div>
- 
-{{this.empForm.value | json}}
+</div>
+
+<!-- {{this.empForm.value | json}} -->

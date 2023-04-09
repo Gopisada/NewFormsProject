@@ -14,7 +14,7 @@ export class ListofdocumentsComponent {
 
   // constructor(private formSubmit: FormSubmitService,
   //   private loader: AppLoaderService,) { }
-  displayedColumns = ['id', 'dataDictionaryName', 'pdfDocName' ,'dictionaryJSONName'];
+  displayedColumns = [ 'dataDictionaryName', 'pdfDocName' ,'dictionaryJSONName'];
   dataSource: MatTableDataSource<DictionaryDocDataModal>  | any;
   
   @ViewChild(MatPaginator) paginator: MatPaginator | any;

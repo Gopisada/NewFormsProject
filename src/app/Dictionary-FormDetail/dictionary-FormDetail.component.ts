@@ -18,7 +18,7 @@ export class DummyCompComponent {
   success:boolean =false;
   error:boolean = false;
   
-  dataTypes: any = ['text', 'number', 'object', 'date'];
+  dataTypes: any = ['Text', 'Number', 'Object', 'Date'];
  
   constructor(private fb: FormBuilder,public formsubmit: FormSubmitService, private loader: AppLoaderService) {}
    
@@ -98,7 +98,7 @@ export class DummyCompComponent {
     this.initialForm();
   }
   selectedType(e: any ,index:number) {
-  if(e.target.value == "3: object"){
+  if(e.target.value == "3: Object"){
       this.addSubKey(index);
     }
     }

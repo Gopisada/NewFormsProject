@@ -45,7 +45,7 @@
 
                 <!-- <label class="form-label">Prefered Type</label> -->
                 <select class="form-select" formControlName="type" (change)="selectedType($event,empIndex)"
-                  [attr.disabled]="empForm.controls.formFields.controls[empIndex].controls.type.value=='object' ? '' : null">
+                  [attr.disabled]="empForm.controls.formFields.controls[empIndex].controls.type.value=='Object' ? '' : null">
                   <option value="">Choose type</option>
                   <option *ngFor="let dtype of dataTypes" [ngValue]="dtype">
                     {{ dtype }}
@@ -104,7 +104,7 @@
               </div>
             </div>
             <button type="button" class="btn btn-primary" (click)="addSubKey(empIndex)"
-              *ngIf="empForm.controls.formFields.controls[empIndex].controls.type.value=='object'">
+              *ngIf="empForm.controls.formFields.controls[empIndex].controls.type.value=='Object'">
               Add Subkey
             </button>
           </div>

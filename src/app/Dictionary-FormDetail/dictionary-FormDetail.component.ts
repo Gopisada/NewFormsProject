@@ -15,10 +15,12 @@ export class DummyCompComponent {
   globalFieldForm:any;
   forms:any=[];
   message:string="";
+  success:boolean =false;
+  error:boolean = false;
   
   dataTypes: any = ['text', 'number', 'object', 'date'];
  
-  constructor(private fb: FormBuilder,public formsubmit: FormSubmitService) {}
+  constructor(private fb: FormBuilder,public formsubmit: FormSubmitService, private loader: AppLoaderService) {}
    
   ngOnInit() {
  this.initialForm();
@@ -73,20 +75,23 @@ export class DummyCompComponent {
     }
  
   onSubmit() {
-    //this.loader.open("Please Wait......");
+    this.loader.open("Please Wait......");
     this.formsubmit.SaveDataDictionary(this.empForm).subscribe({
-      next: (resp: any) => {
-           
-          if(resp == "Successfully inserted the record"){
-            this.message = resp;
-          }else{                       
-            this.message = resp;
+      next: (resp: any) => {           
+          if(resp.response == "Successfully inserted the record"){
+            this.success=true;
+            this.message = resp.response;
+          }else{    
+            this.error=true;                   
+            this.message = resp.response;
           }
-       //   this.loader.close();  
+          this.loader.close();  
       },
       error: (err: any) => {
         //this.toastrService.error(err); 
-       // this.loader.close();
+        this.error =true;
+        this.message  = err;
+        this.loader.close();
       }
     })
     this.empForm.reset();

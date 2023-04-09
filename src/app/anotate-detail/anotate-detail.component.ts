@@ -1,4 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import GcPdfViewer from '@grapecity/gcpdfviewer';
+import { empty } from 'rxjs';
 import { AppLoaderService } from '../apploader/apploader.service';
 import { FormSubmitService } from '../form-submit.service';
 
@@ -8,12 +10,15 @@ import { FormSubmitService } from '../form-submit.service';
   styleUrls: ['./anotate-detail.component.css']
 })
 export class AnotateDetailComponent {
-  constructor(private formSubmit: FormSubmitService,private loader: AppLoaderService,) { }
+  constructor(private formSubmit: FormSubmitService,
+    private loader: AppLoaderService,) { }
   searchField: any = "";
   selected: any;
   selectedPDF: any;
   pdfSrcURL: any;
   josndata: string = "";
+  selectedfile : string = "";
+  public static mypdfview: any;
   pdfList = [
     { value: 'PDF1', url: '/assets/Book1.pdf' },
     { value: 'PDF2', url: '/assets/Insurance_Handbook_20103.pdf' },
@@ -24,32 +29,55 @@ export class AnotateDetailComponent {
   array!: any[];
   txt: any;
   contentListHeaders: string[] = ['list Of headings'];
+  apiMessage: any;
   contentList: any = [];
   viewPdf: any = false;
-  message: string = 'Please Select the Key';
+  message: string = "";
   isKey: boolean = false;
+  sucess : boolean = false;
+  error : boolean = false;
+  selectedDictionaryForm :string ="";
+  selectedDictionaryId :number | any;
 
 
   @ViewChild('pdfViewerOnDemand') PdfComponent: any = ElementRef;
 
   ngOnInit() {
+    localStorage.removeItem('keyselected');
+    this.fieldsList=[];
+    this.contentList=[];
     this.getDataDictionaryData();
   }
 
   getValuesOf(obj: any) {
+    //console.log(" suneel Kumar test ----- >  " + obj.dictionaryname);
     return Object.values(obj)
   }
   getKeys(obj: any) {
     return Object.keys(obj)
   }
   selectedVal(val: any) {
-    //  console.log(val)
-    this.fieldsList = val.value[1];
+    this.selectedDictionaryForm =  val.value[0];
+    this.selectedDictionaryId = val.value[1];
+    this.fieldsList = val.value[2];
   }
   selectedPDFview(val: any) {
+   if(this.fieldsList!=undefined && this.fieldsList!=null && this.fieldsList.length >0){
+    this.loader.open("Please wait .... ");
     this.pdfSrcURL = val.value;
+    
+     setTimeout(() => {      
+        this.loader.close();
+       
+      }, 10000);
+    }else{
+      alert(" Please Select the Dictionary Name..");
+      this.selectedPDF="";
+      //return false;
+    }
   }
   getSelectedFieldText() {
+    if(this.selectedPDF!=undefined && this.selectedPDF!=null && this.selectedPDF!=""){
     if (window.getSelection() && !localStorage.getItem('keyselected') && !this.isKey) {  /* Selecting Key */
       this.txt = window.getSelection()?.toString();
       if (this.txt !== '') {
@@ -65,6 +93,9 @@ export class AnotateDetailComponent {
       }
 
     }
+  }else{
+    alert(" Please select the PDF file first...");
+  }
   }
   getSelectedText() {
     this.keyValidation();
@@ -123,13 +154,36 @@ export class AnotateDetailComponent {
     }
 
   }
-  convertToJson() {
+  async convertToJson() {	
+   
+    this.message = localStorage.getItem('keyselected')? 'Please select the Value for the key': 'Please select the Key';
+if(this.message === "Please select the Value for the key"){
 
-    var list = JSON.stringify(this.contentList);
+}else{
+  this.loader.open("Please wait .... ");
+  this.selectedfile = this.selectedPDF;
+  var fileName = this.selectedfile.substring(this.selectedfile.lastIndexOf("/")+1,this.selectedfile.length);
+  this.formSubmit.addtoJSONFile("{ data :" + JSON.stringify(this.contentList)+"}", this.selectedDictionaryId,this.selectedDictionaryForm,fileName).subscribe({
+    next: (responseData: any) => {
+     this.sucess=true;   
+      this.apiMessage = responseData.response;
+      this.loader.close();
+    },
+    error: (err: string) => {
+      this.error = false;     
+      this.apiMessage = err;
+      this.loader.close();
+    }
+  })
+}
+localStorage.removeItem('keyselected');
+this.fieldsList=[];
+this.contentList=[];
+this.selectedPDF="";
+this.pdfSrcURL="";
+this.selected="";
 
-    this.contentList = [];
-
-  }
+	}
   delete(data: any) {
     localStorage.removeItem('keyselected');
     this.contentList = this.contentList.filter((el: any) => {

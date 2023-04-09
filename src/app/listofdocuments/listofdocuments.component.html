@@ -1,0 +1,42 @@
+<div class="example-header">
+    <mat-form-field>
+      <input matInput  placeholder="Filter">
+    </mat-form-field>
+  </div>
+  
+  <div class="example-container mat-elevation-z8">
+  
+    <mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="dataDictionaryName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Dictionary Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.dataDictionaryName}} </mat-cell>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="pdfDocName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> PDF Document name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.pdfDocName}} </mat-cell>
+      </ng-container>
+  
+      <!-- Color Column -->
+      <ng-container matColumnDef="dictionaryJSONName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> JSON Map Name </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="row.dictionaryJSONName"> {{row.dictionaryJSONName}} </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+  

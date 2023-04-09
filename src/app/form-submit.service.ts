@@ -11,47 +11,7 @@ export class FormSubmitService {
     })
   };
   constructor(private http: HttpClient) { }
-  FormData : any =[
-    {
-       "formFields": [
-          {
-             "type": "text",
-             "object": [],
-             "fieldName": "Customer Name",
-             "description": "Customer name filed"
-          },
-          {
-             "type": "number",
-             "object": [],
-             "fieldName": "Phone",
-             "description": "Phone number of customer"
-          },
-          {
-             "type": "object",
-             "object": [
-                {
-                   "key": "Street",
-                   "text": "Scrinagar street",
-                   "description": null
-                },
-                {
-                   "key": "City",
-                   "text": "VSKP",
-                   "description": null
-                },
-                {
-                   "key": "State",
-                   "text": "AP",
-                   "description": null
-                }
-             ],
-             "fieldName": "Address",
-             "description": "Address of customer"
-          }
-       ],
-       "dictionaryname": "Suneel Test"
-    }
- ]
+  
   /*FormData: any = [{
     "DictionaryName": "HiHello", "FormFields": [{ "fieldName": "cadcsd", "type": "object", "description": "vdvsdvsd", "object": [{ "key": "vdsds", "text": "vdsvd", "desc": "vdsvsdvsd" }] },
     { "fieldName": "mafil", "type": "object", "description": "vdvsdvsd", "object": [{ "key": "vdsds", "text": "vdsvd", "desc": "vdsvsdvsd" }] },
@@ -74,4 +34,25 @@ export class FormSubmitService {
     return this.http.get('http://localhost:9096/datadictionary');
   }
 
+  addInformation(element:any,pageNumber:number){
+    return this.http.post('http://localhost:9096/keyvalue',
+     {'oldValue' : element.oldvalue,'newValue':element.address,'pageNumber':pageNumber}, 
+    );
+  }
+
+
+  addtoJSONFile(element:any,id:number,ddName:string,fileName:string){
+    this.httpOptions.headers = new HttpHeaders;    
+    this.httpOptions.headers = this.httpOptions.headers.append('ddid', id+"");
+    this.httpOptions.headers=  this.httpOptions.headers.append('ddname', ddName);
+    this.httpOptions.headers=  this.httpOptions.headers.append('fileName', fileName);     
+    return this.http.post('http://localhost:9096/jsonfile',element
+     , this.httpOptions
+    );
+  }
+
+  getDataDictionaryDocData() {
+
+    return this.http.get('http://localhost:9096/datadocdetails');
+  }
 }

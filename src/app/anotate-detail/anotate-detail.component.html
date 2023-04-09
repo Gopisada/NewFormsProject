@@ -1,7 +1,19 @@
 <div class="container">
+    <div *ngIf="sucess">
+    <div class="alert alert-success alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>{{apiMessage}}</strong>
+    </div>
+  </div>
+  <div *ngIf="error" >
+    <div class="alert alert-danger alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>{{apiMessage}}</strong>
+    </div>
+  </div>
   <div class="col-md-12" style="display: flex;margin-top: 20px;">
     <div class="col col-md-6">
-  
+
 <mat-form-field appearance="fill">
   <mat-label>Select the Dictionary Name</mat-label>
   <mat-select [(value)]="selected" (selectionChange)="selectedVal($event)">
@@ -50,6 +62,10 @@
 </table>
 </div>
 <div class="column">
+  <!-- <div class="flex-child magenta scroll" id="viewer">
+        
+        
+  </div> -->
 <pdf-viewer [src]=pdfSrcURL *ngIf="pdfSrcURL"
     [render-text]="true"
     [original-size]="false"
@@ -57,11 +73,22 @@
     #pdfViewerOnDemand 
     style="width: 600px; height: 700px;padding: 4px;text-align: justify;"
     (mouseup)="getSelectedText()"
+    [show-all]="true"
+    [zoom]="1"
+    [show-borders]="true"
 ></pdf-viewer>
+
+
 </div>
 <div class="column">
   <div class="tableclass">
-    <h2 *ngIf="contentList.length>0" style="text-align: center;">**Instructions: {{message}}</h2>
+    <div *ngIf="contentList.length>0">
+        <div>
+        <h4> 1. First we need to select the Key on first click. <br>
+          2. Then select the value for the key from the pdf'</h4>
+      </div>
+          <div>&nbsp;&nbsp;</div><div [innerHTML]="message"></div>
+      </div>
     <table  *ngIf="contentList.length>0" class="locationtable">
         <thead class="locationhead">
             <tr>

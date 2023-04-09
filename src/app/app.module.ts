@@ -26,8 +26,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { HttpClientModule } from '@angular/common/http';
 import { AppLoaderService } from './apploader/apploader.service';
+import {  MatPaginatorModule} from "@angular/material/paginator";
+import {   MatTableModule } from "@angular/material/table";
+import {   MatSortModule } from "@angular/material/sort";
+
+
 
 import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { ListofdocumentsComponent } from './listofdocuments/listofdocuments.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +44,8 @@ import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/lega
     AdminDashboardComponent,
     AnotateDetailComponent,
     FooterComponent,
-    FilterPipePipe
+    FilterPipePipe,
+    ListofdocumentsComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +67,12 @@ import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/lega
     MatInputModule,
     MatFormFieldModule,
     HttpClientModule,
-    MatDialogModule 
+    MatDialogModule,
+    NgxExtendedPdfViewerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule, 
   ],
   exports:[MatSelectModule],
   providers: [AppLoaderService],

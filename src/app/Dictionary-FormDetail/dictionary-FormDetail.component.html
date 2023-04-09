@@ -1,5 +1,18 @@
 <div class="flex-container">
+  
   <div class="container">
+    <div *ngIf="success">
+      <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{message}}</strong>
+      </div>
+    </div>
+    <div *ngIf="error" >
+      <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{message}}</strong>
+      </div>
+    </div>
   <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
     <!-- <form class="col col-md-12 mr-5" [formGroup]="globalFieldForm"> -->
     <div class="col col-md-12 mr-5 mb-3">

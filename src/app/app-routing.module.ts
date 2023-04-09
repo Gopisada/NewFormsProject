@@ -7,7 +7,8 @@ import { DictionaryModule } from './Modules/dictionary/dictionary.module';
 const routes: Routes = [
   { path:"",component : DummyCompComponent},
   { path: 'keyUser', loadChildren: () => import('./Modules/dictionary/dictionary.module').then(m => m.DictionaryModule) },
-  { path: 'anotate', loadChildren: () => import('./Modules/annotation/annotation.module').then(m => m.AnnotationModule) }
+  { path: 'anotate', loadChildren: () => import('./Modules/annotation/annotation.module').then(m => m.AnnotationModule) },
+  { path: 'anotateddoc', loadChildren: () => import('./Modules/annotateddoclist/annotateddoc.module').then(m => m.AnnotatedDocumentsModule) }
 ];
 
 @NgModule({

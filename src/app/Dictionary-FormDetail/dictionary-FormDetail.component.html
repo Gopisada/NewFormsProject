@@ -36,11 +36,11 @@
             <div class="col col-md-3 mr-5">
               <div class="mb-3">
                 <label [for]="'fieldName' + empIndex" class="form-label"></label>
-                <input type="text" class="form-control" [id]="'fieldName' + empIndex" placeholder="fieldName"
+                <input type="text" class="form-control" [id]="'fieldName' + empIndex" placeholder="Field Name"
                   formControlName="fieldName" />
               </div>
             </div>
-            <div class="col col-md-3 mr-5" style="padding-top: 25px;">
+            <div class="col col-md-3 mr-5" style="padding-top: 25px;margin-top: -4px;">
               <div class="mb-3">
 
                 <!-- <label class="form-label">Prefered Type</label> -->
@@ -73,7 +73,7 @@
           <div formArrayName="object">
             <div *ngFor="let skill of adressDetails(empIndex).controls; let adressIndex=index">
               <div [formGroupName]="adressIndex">
-                <div class="row col col-md-12" style="display: flex;margin-left: 152px;">
+                <div class="row col col-md-12" style="display: flex;margin-left: 140px;">
                   <div class="col col-md-3">
                     <div class="mb-3">
                       <label [for]="'key' + adressIndex" class="form-label"></label>
@@ -81,11 +81,15 @@
                         formControlName="key" />
                     </div>
                   </div>
-                  <div class="col col-md-3">
+                  <div class="col col-md-3" style="padding-top: 25px;margin-top: -4px;">
                     <div class="mb-3">
-                      <label [for]="'text' + adressIndex" class="form-label"></label>
-                      <input type="text" class="form-control" [id]="'text' + adressIndex" placeholder="text"
-                        formControlName="text" />
+                      <select class="form-select" formControlName="type">
+                  <option value="">Choose type</option>
+                  <option *ngFor="let dtype of dataTypes" [ngValue]="dtype">
+                    {{ dtype }}
+                  </option>
+
+                </select>
                     </div>
                   </div>
                   <div class="col col-md-4">
@@ -103,17 +107,17 @@
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-primary" (click)="addSubKey(empIndex)"
+            <div (click)="addSubKey(empIndex)" style="margin-left: 25px;"
               *ngIf="empForm.controls.formFields.controls[empIndex].controls.type.value=='Object'">
-              Add Subkey
-            </button>
+              <mat-icon>add_box</mat-icon>
+          </div>
           </div>
 
 
         </div>
       </div>
       <button type="button" class="btn btn-primary" (click)="addEmployee()">Add Fields</button>
-      <button type="submit" class="btn btn-primary"
+      <button type="submit" class="btn btn-primary" style="margin-left:25px"
         [disabled]="empForm.controls.dictionaryname.invalid && (empForm.controls.dictionaryname.dirty || empForm.controls.dictionaryname.touched) || empForm.controls.dictionaryname.value==''">Submit</button>
     </div>
   </form>

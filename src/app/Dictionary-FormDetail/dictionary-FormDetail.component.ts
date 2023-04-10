@@ -61,7 +61,7 @@ export class DummyCompComponent {
   newAddDetail(): FormGroup {
     return this.fb.group({
       key: '',
-      text: '',
+      type: '',
       desc:''
     });
   }

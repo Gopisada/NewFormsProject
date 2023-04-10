@@ -59,6 +59,7 @@ export class LoginComponent {
       //             this.loading = false;
       //         });
       this.loader.open("Please wait .... ");
+      localStorage.setItem('currentUser', "loggedin");
       this.router.navigate(["/dashboard"]);
        setTimeout(() => {      
           this.loader.close();

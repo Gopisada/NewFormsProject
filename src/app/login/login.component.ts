@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
+import { AppLoaderService } from '../apploader/apploader.service';
 import { AuthenticationServiceService } from '../authentication-service.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class LoginComponent {
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
-      private authenticationService: AuthenticationServiceService) {}
+      private authenticationService: AuthenticationServiceService,
+      private loader:AppLoaderService) {}
 
   ngOnInit() {
       this.loginForm = this.formBuilder.group({
@@ -56,7 +58,13 @@ export class LoginComponent {
       //             // this.alertService.error(error);
       //             this.loading = false;
       //         });
+      this.loader.open("Please wait .... ");
       this.router.navigate(["/dashboard"]);
+       setTimeout(() => {      
+          this.loader.close();
+         
+        }, 1000);
+     
   }
 }
 

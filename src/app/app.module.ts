@@ -35,6 +35,7 @@ import {   MatSortModule } from "@angular/material/sort";
 import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { ListofdocumentsComponent } from './listofdocuments/listofdocuments.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ListofdocumentsComponent } from './listofdocuments/listofdocuments.comp
     AnotateDetailComponent,
     FooterComponent,
     FilterPipePipe,
-    ListofdocumentsComponent
+    ListofdocumentsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

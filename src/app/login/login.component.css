@@ -1,0 +1,9 @@
+form {
+    width:52%;
+    padding: 30px;
+    position: fixed;
+    left:50%;
+    top:50%;
+    background-color: rgb(230, 227, 227);
+    transform: translate(-50%,-50%);
+}

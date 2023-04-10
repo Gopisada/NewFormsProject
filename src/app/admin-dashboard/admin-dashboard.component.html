@@ -25,15 +25,15 @@
 
         <mat-nav-list>
            
-            <mat-list-item routerLink="/keyUser" routerLinkActive="active-link">
+            <mat-list-item  [routerLink]="['./keyUser']" routerLinkActive="active-link">
                 <span>Define Data Model (Data Dictionary)</span>
             </mat-list-item>
 
-            <mat-list-item routerLink="/anotate" routerLinkActive="active-link">
+            <mat-list-item [routerLink]="['./anotate']" routerLinkActive="active-link">
                 <span>Annotate the documents</span>
             </mat-list-item>
 
-            <mat-list-item routerLink="/anotateddoc" routerLinkActive="active-link">
+            <mat-list-item [routerLink]="['./anotateddoc']" routerLinkActive="active-link">
                 <span>Annotated documents</span>
             </mat-list-item>
 

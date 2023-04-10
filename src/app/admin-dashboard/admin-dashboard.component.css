@@ -54,3 +54,7 @@ mat-sidenav-container {
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
 }
+.logout{
+  position: absolute;
+  right:20px;
+}

@@ -39,7 +39,7 @@
 </div>
 </div>
 
-<div class="row">
+<div class="row" style="width: 100%;">
   <div class="column" *ngIf="fieldsList.length>0">
     <form style="margin-left: 80px;">
       <mat-form-field class="example-full-width">
@@ -51,12 +51,16 @@
 <table class="locationtable">
   <thead class="locationhead">
     <tr>
+      <th>Select key</th>
+      <th>S.No</th>
       <th>List of Fields</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let val of fieldsList | filterPipe:searchField;let i=index">
-    <td (mouseup)="getSelectedFieldText()">{{val.fieldName}}</td>
+      <td><input type="checkbox" value="{{val.fieldName}}" (change)="isChecked($event)"></td>
+      <td>{{i+1}}</td>
+    <td>{{val.fieldName}}</td>
     </tr>
   </tbody>
 </table>
@@ -71,7 +75,7 @@
     [original-size]="false"
     [render-text-mode]="1"
     #pdfViewerOnDemand 
-    style="width: 600px; height: 700px;padding: 4px;text-align: justify;"
+    style="width: 500px; height: 500px;text-align: justify;"
     (mouseup)="getSelectedText()"
     [show-all]="true"
     [zoom]="1"

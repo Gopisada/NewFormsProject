@@ -46,7 +46,8 @@ export class AnotateDetailComponent {
     localStorage.removeItem('keyselected');
     this.fieldsList=[];
     this.contentList=[];
-    this.getDataDictionaryData();
+     this.getDataDictionaryData();
+    // this.array = this.formSubmit.FormData;
   }
 
   getValuesOf(obj: any) {
@@ -60,7 +61,7 @@ export class AnotateDetailComponent {
     this.selectedDictionaryForm =  val.value[0];
     this.selectedDictionaryId = val.value[1];
     this.fieldsList = val.value[2];
-  }
+    }
   selectedPDFview(val: any) {
    if(this.fieldsList!=undefined && this.fieldsList!=null && this.fieldsList.length >0){
     this.loader.open("Please wait .... ");
@@ -76,27 +77,7 @@ export class AnotateDetailComponent {
       //return false;
     }
   }
-  getSelectedFieldText() {
-    if(this.selectedPDF!=undefined && this.selectedPDF!=null && this.selectedPDF!=""){
-    if (window.getSelection() && !localStorage.getItem('keyselected') && !this.isKey) {  /* Selecting Key */
-      this.txt = window.getSelection()?.toString();
-      if (this.txt !== '') {
-        var obj = {
-          key: this.txt,
-          value: '',
-          xCoord: '',
-          yCoord: '',
-          page: ''
-        }
-        this.contentList.push(obj);
-        localStorage.setItem("keyselected", this.txt);
-      }
-
-    }
-  }else{
-    alert(" Please select the PDF file first...");
-  }
-  }
+  
   getSelectedText() {
     this.keyValidation();
     if (!this.isKey) {
@@ -217,6 +198,34 @@ this.selected="";
       }
     })
 
+  }
+  isChecked(event:any){
+    if(this.selectedPDF!=undefined && this.selectedPDF!=null && this.selectedPDF!=""){
+      if(event.target.checked){
+      if (!localStorage.getItem('keyselected') && !this.isKey) {  /* Selecting Key */
+        this.txt = event.target.value;
+        if (this.txt !== '') {
+          var obj = {
+            key: this.txt,
+            value: '',
+            xCoord: '',
+            yCoord: '',
+            page: ''
+          }
+          this.contentList.push(obj);
+          localStorage.setItem("keyselected", this.txt);
+        }
+      }
+      }else{
+        this.contentList = this.contentList.filter((el:any)=>{
+          return el.key!=event.target.value;
+        })
+        localStorage.removeItem('keyselected')
+      }
+    }else{
+      alert(" Please select the PDF file first...");
+      event.target.checked =false;
+    }
   }
 
 }

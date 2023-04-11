@@ -1,8 +1,6 @@
 table {
-    width: 90%;
     margin: auto;
     margin-top: 25px;
-    margin-left: 50px;
     border: 2px solid black;
   }
   th{
@@ -16,9 +14,7 @@ tr:nth-child(odd){
     background-color: lightgrey;
 }
 .locationtable {
-    overflow-y: auto;
-    overflow-x: auto;
-    width:300px;
+    width:85%;
     margin-bottom: 2.4rem;
     background-color:rgb(241, 240, 240);
     color: black;
@@ -42,10 +38,6 @@ tr:nth-child(odd){
   }
   .locationtable tbody tr {
     border-bottom: groove;
-  }
-  .tableclass{
-    position: relative;
-    margin-left: 220px;
   }
   p{
     color: red;

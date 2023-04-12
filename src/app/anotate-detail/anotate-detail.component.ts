@@ -3,6 +3,7 @@ import GcPdfViewer from '@grapecity/gcpdfviewer';
 import { empty } from 'rxjs';
 import { AppLoaderService } from '../apploader/apploader.service';
 import { FormSubmitService } from '../form-submit.service';
+import PSPDFKit from "pspdfkit";
 
 @Component({
   selector: 'app-anotate-detail',
@@ -15,7 +16,7 @@ export class AnotateDetailComponent {
   searchField: any = "";
   selected: any;
   selectedPDF: any;
-  pdfSrcURL: any;
+  pdfSrcURL: any="";
   josndata: string = "";
   selectedfile : string = "";
   public static mypdfview: any;
@@ -38,6 +39,7 @@ export class AnotateDetailComponent {
   error : boolean = false;
   selectedDictionaryForm :string ="";
   selectedDictionaryId :number | any;
+  selectedValPDF:any= "div";
 
 
   @ViewChild('pdfViewerOnDemand') PdfComponent: any = ElementRef;
@@ -46,8 +48,8 @@ export class AnotateDetailComponent {
     localStorage.removeItem('keyselected');
     this.fieldsList=[];
     this.contentList=[];
-     this.getDataDictionaryData();
-    // this.array = this.formSubmit.FormData;
+    //  this.getDataDictionaryData();
+     this.array = this.formSubmit.FormData;
   }
 
   getValuesOf(obj: any) {
@@ -66,6 +68,7 @@ export class AnotateDetailComponent {
    if(this.fieldsList!=undefined && this.fieldsList!=null && this.fieldsList.length >0){
     this.loader.open("Please wait .... ");
     this.pdfSrcURL = val.value;
+   this.loadPdf();
     
      setTimeout(() => {      
         this.loader.close();
@@ -76,6 +79,64 @@ export class AnotateDetailComponent {
       this.selectedPDF="";
       //return false;
     }
+  }
+ 
+  loadPdf(){
+    PSPDFKit.unload(this.selectedValPDF)
+    
+    PSPDFKit.load({
+      // Use the assets directory URL as a base URL. PSPDFKit will download its library assets from here.
+      baseUrl: location.protocol + "//" + location.host + "/assets/",
+      document: this.pdfSrcURL,
+      container: ".pspdfkit-container",
+      licenseKey: "YOUR_LICENSE_KEY_GOES_HERE", // optional LICENSE key
+    }).then((instance) => {
+      // For the sake of this demo, store the PSPDFKit for Web instance
+      // on the global object so that you can open the dev tools and
+      // play with the PSPDFKit API.
+
+      (<any>window).instance = instance;
+      console.log(instance);
+      this.selectedValPDF = instance;
+ instance.addEventListener("annotations.create", detectVisibleAnnotations);
+      function detectVisibleAnnotations() {
+        const pageIndex = instance.viewState.currentPageIndex;
+        const pageRect = pageIndex? getPageVisibleRect(pageIndex):undefined;
+        // Traverse page annotations and check if their bounding box
+        // overlaps the visible area
+        instance.getAnnotations(pageIndex).then(annotations => {
+          annotations.forEach(annotation => {
+            // if (annotation.boundingBox.isRectOverlapping(pageRect)) {
+            //   // Visible annotation detected, log it (or keep a reference to it somewhere)
+            //   console.log(annotation.toJS());
+            // }
+          });
+        });
+      }
+      function getPageVisibleRect(pageIndex:any) {
+        // Page DOM element
+        const pageEl = instance.contentDocument.querySelector(
+          `.PSPDFKit-Page[data-page-index="${pageIndex}"]`
+        );
+        const pageBoundingClientRect = pageEl?.getBoundingClientRect();
+        // Viewport DOM element
+        const viewportEl = instance.contentDocument.querySelector(
+          ".PSPDFKit-Viewport"
+        );
+        // Toolbar DOM element, needs offsetting
+        const toolbarEl = instance.contentDocument.querySelector(".PSPDFKit-Toolbar");
+        // Get visible page area in page units
+        return instance.transformContentClientToPageSpace(
+          new PSPDFKit.Geometry.Rect({
+            left:pageBoundingClientRect? Math.max(pageBoundingClientRect.left, 0):0,
+            top: pageBoundingClientRect? Math.max(pageBoundingClientRect.top, toolbarEl?toolbarEl.scrollHeight:0):0,
+            width:pageEl? Math.min(pageEl.clientWidth, viewportEl?viewportEl.clientWidth:0):0,
+            height: pageEl? Math.min(pageEl.clientHeight, viewportEl?viewportEl.clientHeight:0):0
+          }),
+          pageIndex
+        );
+      }
+    });
   }
   
   getSelectedText() {

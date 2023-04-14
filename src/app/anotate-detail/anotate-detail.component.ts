@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import * as $ from "jquery";
 import GcPdfViewer from '@grapecity/gcpdfviewer';
 import { empty } from 'rxjs';
 import { AppLoaderService } from '../apploader/apploader.service';
@@ -50,6 +51,8 @@ export class AnotateDetailComponent {
     this.contentList=[];
     //  this.getDataDictionaryData();
      this.array = this.formSubmit.FormData;
+    
+     
   }
 
   getValuesOf(obj: any) {
@@ -91,6 +94,7 @@ export class AnotateDetailComponent {
       container: ".pspdfkit-container",
       licenseKey: "YOUR_LICENSE_KEY_GOES_HERE", // optional LICENSE key
     }).then((instance) => {
+      
       // For the sake of this demo, store the PSPDFKit for Web instance
       // on the global object so that you can open the dev tools and
       // play with the PSPDFKit API.
@@ -101,31 +105,72 @@ export class AnotateDetailComponent {
  instance.addEventListener("annotations.create", detectVisibleAnnotations);
       function detectVisibleAnnotations() {
         const pageIndex = instance.viewState.currentPageIndex;
-        const pageRect = pageIndex? getPageVisibleRect(pageIndex):undefined;
+        const pageRect = pageIndex? getPageVisibleRect(pageIndex):undefined
         // Traverse page annotations and check if their bounding box
         // overlaps the visible area
-        instance.getAnnotations(pageIndex).then(annotations => {
-          annotations.forEach(annotation => {
-            // if (annotation.boundingBox.isRectOverlapping(pageRect)) {
-            //   // Visible annotation detected, log it (or keep a reference to it somewhere)
-            //   console.log(annotation.toJS());
-            // }
+        instance.getAnnotations(pageIndex).then((annotations:any) => {
+          annotations.forEach((annotation:any) => {
+            if (annotation.boundingBox.isRectOverlapping(pageRect)) {
+              // Visible annotation detected, log it (or keep a reference to it somewhere)
+              console.log(annotation.toJS().boundingBox);
+            }
           });
         });
       }
-      function getPageVisibleRect(pageIndex:any) {
+   let getPageVisibleRect = (pageIndex:any)=> {
         // Page DOM element
         const pageEl = instance.contentDocument.querySelector(
           `.PSPDFKit-Page[data-page-index="${pageIndex}"]`
         );
         const pageBoundingClientRect = pageEl?.getBoundingClientRect();
+        if (localStorage.getItem('keyselected')) {
+          var tempobj = {
+            key: localStorage.getItem('keyselected'),
+            bottom:pageBoundingClientRect?.bottom,
+            height:pageBoundingClientRect?.height,
+            left:pageBoundingClientRect?.left,
+            right:pageBoundingClientRect?.right,
+            top: pageBoundingClientRect?.top,
+            width:pageBoundingClientRect?.width,
+            x:pageBoundingClientRect?.x,
+            y:pageBoundingClientRect?.y,
+            page: pageIndex + 1
+          }
+          localStorage.removeItem("keyselected");
+          this.contentList.forEach((el: any) => {
+            if (el.key == tempobj.key) {
+              el.bottom = tempobj.bottom;
+              el.height = tempobj.height;
+              el.left = tempobj.left;
+              el.right = tempobj.right;
+              el.top = tempobj.top;
+              el.width = tempobj.width;
+              el.x = tempobj.x;
+              el.y =tempobj.y;
+              el.page = tempobj.page;
+
+              
+            }
+          })
+        }
+       
         // Viewport DOM element
         const viewportEl = instance.contentDocument.querySelector(
           ".PSPDFKit-Viewport"
         );
         // Toolbar DOM element, needs offsetting
         const toolbarEl = instance.contentDocument.querySelector(".PSPDFKit-Toolbar");
+         const ghf = console.log(instance.contentDocument);
         // Get visible page area in page units
+        console.log(instance.transformContentPageToClientSpace(
+          new PSPDFKit.Geometry.Rect({
+            left:pageBoundingClientRect? Math.max(pageBoundingClientRect.left, 0):0,
+            top: pageBoundingClientRect? Math.max(pageBoundingClientRect.top, toolbarEl?toolbarEl.scrollHeight:0):0,
+            width:pageEl? Math.min(pageEl.clientWidth, viewportEl?viewportEl.clientWidth:0):0,
+            height: pageEl? Math.min(pageEl.clientHeight, viewportEl?viewportEl.clientHeight:0):0
+          }),
+          pageIndex
+        ))
         return instance.transformContentClientToPageSpace(
           new PSPDFKit.Geometry.Rect({
             left:pageBoundingClientRect? Math.max(pageBoundingClientRect.left, 0):0,
@@ -138,7 +183,7 @@ export class AnotateDetailComponent {
       }
     });
   }
-  
+ 
   getSelectedText() {
     this.keyValidation();
     if (!this.isKey) {
@@ -156,14 +201,14 @@ export class AnotateDetailComponent {
           var xCoord = leftAndBot[0];
           var yCoord = leftAndBot[1];
 
-          var tempobj = {
-            key: localStorage.getItem('keyselected'),
-            value: val,
-            xCoord: xCoord,
-            yCoord: yCoord,
-            page: pageIndex + 1
-          }
-          localStorage.removeItem("keyselected");
+            var tempobj = {
+              key: localStorage.getItem('keyselected'),
+              value: val,
+              xCoord: xCoord,
+              yCoord: yCoord,
+              page: pageIndex + 1
+            }
+            localStorage.removeItem("keyselected");
 
           /* adding Value to the key selected by the user */
 
@@ -268,9 +313,14 @@ this.selected="";
         if (this.txt !== '') {
           var obj = {
             key: this.txt,
-            value: '',
-            xCoord: '',
-            yCoord: '',
+            bottom:"",
+            height:"",
+            left:"",
+            right:"",
+            top: "",
+            width:"",
+            x:"",
+            y:"",
             page: ''
           }
           this.contentList.push(obj);
@@ -287,6 +337,9 @@ this.selected="";
       alert(" Please select the PDF file first...");
       event.target.checked =false;
     }
+    this.keyValidation()
   }
 
 }
+
+

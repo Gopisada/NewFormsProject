@@ -68,4 +68,28 @@ tr:nth-child(odd){
   display: table;
   clear: both;
 }
- 
+#selectionMarquee {
+  z-index: 1000;
+  position: absolute;
+  border: 1px dashed #ccc;
+}
+
+.selected-box {
+  z-index: 999;
+  position: absolute;
+  border: 1px dotted #333;
+}
+#all-cords {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  background: #9f9;
+}
+body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

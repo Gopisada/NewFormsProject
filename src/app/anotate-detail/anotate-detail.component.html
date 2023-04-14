@@ -1,4 +1,9 @@
+<!doctype html>
 <div class="container">
+  <div id='selectionMarquee'>
+  
+  </div>
+      <ol id='all-cords'></ol>
     <div *ngIf="sucess">
     <div class="alert alert-success alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -70,7 +75,9 @@
         
         
   </div> -->
-  <div class="pspdfkit-container" style="width: 100%; height: 100vh;" id="xyz"></div>
+  <div class="pspdfkit-container" style="width: 100%; height: 100vh;" id="xyz">
+    </div>
+    
 <!-- <pdf-viewer [src]=pdfSrcURL *ngIf="pdfSrcURL"
     [render-text]="true"
     [original-size]="false"
@@ -98,19 +105,29 @@
         <thead class="locationhead">
             <tr>
                 <th>Keys</th>
-                <th>Values</th>
-                <th>X coordinate</th>
-                <th>Y coordinate</th>
-                <th>Page Number</th>
+                <th>Bottom</th>
+                <th>Height</th>
+                <th>left</th>
+                <th>right</th>
+                <th>top</th>
+                <th>width</th>
+                <th>X</th>
+                <th>Y</th>
+                <th>Page No</th>
                 <th>Action</th>
                 </tr>
         </thead>
        <tbody>
         <tr *ngFor="let text of contentList">
-            <td><input  class="input" type="text" [(ngModel)]="text.key" value="text.key" [disabled]="text.value==''" (keyup)="validateKey(text.key)" /></td>
-        <td>{{text.value}}</td>
-        <td>{{text.xCoord!==''?text.xCoord.toFixed(2):''}}</td>
-        <td>{{text.yCoord!==''?text.yCoord.toFixed(2):''}}</td>
+            <td><input  class="input" type="text" [(ngModel)]="text.key" value="text.key" [disabled]="text.bottom==''" (keyup)="validateKey(text.key)" /></td>
+        <td>{{text.bottom}}</td>
+        <td>{{text.height!==''?text.height.toFixed(2):''}}</td>
+        <td>{{text.left!==''?text.left.toFixed(2):''}}</td>
+        <td>{{text.right!==''?text.right.toFixed(2):''}}</td>
+        <td>{{text.top!==''?text.top.toFixed(2):''}}</td>
+        <td>{{text.width!==''?text.width.toFixed(2):''}}</td>
+        <td>{{text.x!==''?text.x.toFixed(2):''}}</td>
+        <td>{{text.y!==''?text.y.toFixed(2):''}}</td>
         <td>{{text.page}}</td>
         <td>
             <button class=" btn-default" type="button" (click)="delete(text)">

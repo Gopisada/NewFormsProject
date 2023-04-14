@@ -111,7 +111,7 @@ export class AnotateDetailComponent {
         // overlaps the visible area
         instance.getAnnotations(pageIndex).then((annotations:any) => {
           annotations.forEach((annotation:any) => {
-            if (annotation.boundingBox.isRectOverlapping(pageRect)) {
+            // if (annotation.boundingBox.isRectOverlapping(pageRect)) {
               if (localStorage.getItem('keyselected')) {
                 var tempobj = annotation.toJS().boundingBox
                 this.contentList.forEach((el: any) => {
@@ -127,20 +127,23 @@ export class AnotateDetailComponent {
               }
               // Visible annotation detected, log it (or keep a reference to it somewhere)
               console.log(annotation.toJS().boundingBox);
-            }
+            // }
           });
         });
-        (async () => {
-          const pagesAnnotations = await Promise.all(
-            Array.from({ length: instance.totalPageCount }).map((_, pageIndex) =>
-              instance.getAnnotations(pageIndex)
-            )
-          );
-          const annotationIds = pagesAnnotations.flatMap(pageAnnotations =>
-            pageAnnotations.map(annotation => annotation.id).toArray()
-          );
-          await instance.delete(annotationIds)
-        })();
+        setTimeout(()=>{
+          (async () => {
+            const pagesAnnotations = await Promise.all(
+              Array.from({ length: instance.totalPageCount }).map((_, pageIndex) =>
+                instance.getAnnotations(pageIndex)
+              )
+            );
+            const annotationIds = pagesAnnotations.flatMap(pageAnnotations =>
+              pageAnnotations.map(annotation => annotation.id).toArray()
+            );
+            await instance.delete(annotationIds)
+          })();
+        },1000)
+        
       
       }
       instance.addEventListener("annotations.create", detectVisibleAnnotations);

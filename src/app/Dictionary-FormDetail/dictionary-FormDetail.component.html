@@ -116,8 +116,8 @@
 
         </div>
       </div>
-      <button type="button" class="btn btn-primary" (click)="addEmployee()">Add Fields</button>
-      <button type="submit" class="btn btn-primary" style="margin-left:25px"
+      <button type="button" class="btn btn-primary mt-4" (click)="addEmployee()">Add Fields</button>
+      <button type="submit" class="btn btn-primary mt-4" style="margin-left:25px"
         [disabled]="empForm.controls.dictionaryname.invalid && (empForm.controls.dictionaryname.dirty || empForm.controls.dictionaryname.touched) || empForm.controls.dictionaryname.value==''">Submit</button>
     </div>
   </form>

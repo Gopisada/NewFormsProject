@@ -181,54 +181,6 @@ export class AnotateDetailComponent {
       }
     });
   }
- 
-  getSelectedText() {
-    this.keyValidation();
-    if (!this.isKey) {
-      if (localStorage.getItem('keyselected'))  /* Selecting Key */
-  /* Selecting Value */ {
-        var val = window.getSelection()?.toString();
-        if (val !== '') {
-          var pageIndex = this.PdfComponent.pdfViewer.currentPageNumber - 1;
-          var page = this.PdfComponent.pdfViewer.getPageView(pageIndex);
-          var pageRect = page.canvas.getClientRects()[0];
-          var selectionRects = window.getSelection()?.getRangeAt(0).getClientRects();
-          var selectionRect = selectionRects ? selectionRects[0] : undefined; //only care about one line, maybe forbid multi line
-          var viewport = page.viewport;
-          var leftAndBot = selectionRect ? (viewport.convertToPdfPoint(selectionRect.left - pageRect.x, selectionRect.top - pageRect.y)) : '';
-          var xCoord = leftAndBot[0];
-          var yCoord = leftAndBot[1];
-
-            var tempobj = {
-              key: localStorage.getItem('keyselected'),
-              value: val,
-              xCoord: xCoord,
-              yCoord: yCoord,
-              page: pageIndex + 1
-            }
-            localStorage.removeItem("keyselected");
-
-          /* adding Value to the key selected by the user */
-
-          this.contentList.forEach((el: any) => {
-            if (el.key == tempobj.key) {
-              el.value = tempobj.value;
-              el.xCoord = tempobj.xCoord;
-              el.yCoord = tempobj.yCoord;
-              el.page = tempobj.page
-            }
-          })
-          /* Removing Duplicate keys and values from list*/
-          this.contentList = this.contentList.filter((val: any, index: any, self: any) =>
-            index === self.findIndex((t: any) => (
-              t.value === val.value && t.key === val.key
-            ))
-          )
-        }
-      }
-      this.message = localStorage.getItem('keyselected') ? 'Please Select the Value for the Selected Key' : 'Please select the Key';
-    }
-  }
   keyValidation() {
     if (this.contentList.length > 0) {
       this.contentList.forEach((el: any) => {

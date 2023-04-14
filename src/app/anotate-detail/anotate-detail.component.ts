@@ -49,8 +49,8 @@ export class AnotateDetailComponent {
     localStorage.removeItem('keyselected');
     this.fieldsList=[];
     this.contentList=[];
-    //  this.getDataDictionaryData();
-     this.array = this.formSubmit.FormData;
+     this.getDataDictionaryData();
+    //  this.array = this.formSubmit.FormData;
     
      
   }
@@ -160,15 +160,7 @@ export class AnotateDetailComponent {
         const toolbarEl = instance.contentDocument.querySelector(".PSPDFKit-Toolbar");
          const ghf = console.log(instance.contentDocument);
         // Get visible page area in page units
-        console.log(instance.transformContentPageToClientSpace(
-          new PSPDFKit.Geometry.Rect({
-            left:pageBoundingClientRect? Math.max(pageBoundingClientRect.left, 0):0,
-            top: pageBoundingClientRect? Math.max(pageBoundingClientRect.top, toolbarEl?toolbarEl.scrollHeight:0):0,
-            width:pageEl? Math.min(pageEl.clientWidth, viewportEl?viewportEl.clientWidth:0):0,
-            height: pageEl? Math.min(pageEl.clientHeight, viewportEl?viewportEl.clientHeight:0):0
-          }),
-          pageIndex
-        ))
+       
         return instance.transformContentClientToPageSpace(
           new PSPDFKit.Geometry.Rect({
             left:pageBoundingClientRect? Math.max(pageBoundingClientRect.left, 0):0,

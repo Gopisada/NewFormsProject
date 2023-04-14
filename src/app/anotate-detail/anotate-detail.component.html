@@ -105,29 +105,21 @@
         <thead class="locationhead">
             <tr>
                 <th>Keys</th>
-                <th>Bottom</th>
                 <th>Height</th>
                 <th>left</th>
-                <th>right</th>
                 <th>top</th>
                 <th>width</th>
-                <th>X</th>
-                <th>Y</th>
                 <th>Page No</th>
                 <th>Action</th>
                 </tr>
         </thead>
        <tbody>
         <tr *ngFor="let text of contentList">
-            <td><input  class="input" type="text" [(ngModel)]="text.key" value="text.key" [disabled]="text.bottom==''" (keyup)="validateKey(text.key)" /></td>
-        <td>{{text.bottom}}</td>
+            <td><input  class="input" type="text" [(ngModel)]="text.key" value="text.key" [disabled]="text.height==''" (keyup)="validateKey(text.key)" /></td>
         <td>{{text.height!==''?text.height.toFixed(2):''}}</td>
         <td>{{text.left!==''?text.left.toFixed(2):''}}</td>
-        <td>{{text.right!==''?text.right.toFixed(2):''}}</td>
         <td>{{text.top!==''?text.top.toFixed(2):''}}</td>
         <td>{{text.width!==''?text.width.toFixed(2):''}}</td>
-        <td>{{text.x!==''?text.x.toFixed(2):''}}</td>
-        <td>{{text.y!==''?text.y.toFixed(2):''}}</td>
         <td>{{text.page}}</td>
         <td>
             <button class=" btn-default" type="button" (click)="delete(text)">

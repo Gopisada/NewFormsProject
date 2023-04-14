@@ -95,6 +95,7 @@ export class AnotateDetailComponent {
       licenseKey: "YOUR_LICENSE_KEY_GOES_HERE", // optional LICENSE key
     }).then((instance) => {
       
+      
       // For the sake of this demo, store the PSPDFKit for Web instance
       // on the global object so that you can open the dev tools and
       // play with the PSPDFKit API.
@@ -102,8 +103,8 @@ export class AnotateDetailComponent {
       (<any>window).instance = instance;
       console.log(instance);
       this.selectedValPDF = instance;
- instance.addEventListener("annotations.create", detectVisibleAnnotations);
-      function detectVisibleAnnotations() {
+ 
+      var detectVisibleAnnotations= () => {
         const pageIndex = instance.viewState.currentPageIndex;
         const pageRect = pageIndex? getPageVisibleRect(pageIndex):undefined
         // Traverse page annotations and check if their bounding box
@@ -111,48 +112,45 @@ export class AnotateDetailComponent {
         instance.getAnnotations(pageIndex).then((annotations:any) => {
           annotations.forEach((annotation:any) => {
             if (annotation.boundingBox.isRectOverlapping(pageRect)) {
+              if (localStorage.getItem('keyselected')) {
+                var tempobj = annotation.toJS().boundingBox
+                this.contentList.forEach((el: any) => {
+                  if (el.key == localStorage.getItem('keyselected')) {
+                   el.height = tempobj.height;
+                    el.left = tempobj.left;
+                    el.top = tempobj.top;
+                    el.width = tempobj.width;
+                    el.page = pageIndex+1;
+                    }
+                })
+                localStorage.removeItem("keyselected");
+              }
               // Visible annotation detected, log it (or keep a reference to it somewhere)
               console.log(annotation.toJS().boundingBox);
             }
           });
         });
+        (async () => {
+          const pagesAnnotations = await Promise.all(
+            Array.from({ length: instance.totalPageCount }).map((_, pageIndex) =>
+              instance.getAnnotations(pageIndex)
+            )
+          );
+          const annotationIds = pagesAnnotations.flatMap(pageAnnotations =>
+            pageAnnotations.map(annotation => annotation.id).toArray()
+          );
+          await instance.delete(annotationIds)
+        })();
+      
       }
+      instance.addEventListener("annotations.create", detectVisibleAnnotations);
    let getPageVisibleRect = (pageIndex:any)=> {
         // Page DOM element
         const pageEl = instance.contentDocument.querySelector(
           `.PSPDFKit-Page[data-page-index="${pageIndex}"]`
         );
         const pageBoundingClientRect = pageEl?.getBoundingClientRect();
-        if (localStorage.getItem('keyselected')) {
-          var tempobj = {
-            key: localStorage.getItem('keyselected'),
-            bottom:pageBoundingClientRect?.bottom,
-            height:pageBoundingClientRect?.height,
-            left:pageBoundingClientRect?.left,
-            right:pageBoundingClientRect?.right,
-            top: pageBoundingClientRect?.top,
-            width:pageBoundingClientRect?.width,
-            x:pageBoundingClientRect?.x,
-            y:pageBoundingClientRect?.y,
-            page: pageIndex + 1
-          }
-          localStorage.removeItem("keyselected");
-          this.contentList.forEach((el: any) => {
-            if (el.key == tempobj.key) {
-              el.bottom = tempobj.bottom;
-              el.height = tempobj.height;
-              el.left = tempobj.left;
-              el.right = tempobj.right;
-              el.top = tempobj.top;
-              el.width = tempobj.width;
-              el.x = tempobj.x;
-              el.y =tempobj.y;
-              el.page = tempobj.page;
-
-              
-            }
-          })
-        }
+     
        
         // Viewport DOM element
         const viewportEl = instance.contentDocument.querySelector(
@@ -313,14 +311,10 @@ this.selected="";
         if (this.txt !== '') {
           var obj = {
             key: this.txt,
-            bottom:"",
             height:"",
             left:"",
-            right:"",
             top: "",
             width:"",
-            x:"",
-            y:"",
             page: ''
           }
           this.contentList.push(obj);
